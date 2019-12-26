@@ -41,7 +41,9 @@
 
       <div class="mainContentBox">
         <div class="TagBox">
-          <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+
+
+          <el-tabs  v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="selectTab">
             <el-tab-pane
               v-for="(item, index) in editableTabs"
               :key="item.name"
@@ -77,32 +79,20 @@ export default {
     };
   },
   methods: {
-    addTab(targeLink,targetName) {
-      this.$router.push({name: targeLink});
-      for(var i=0;i<=this.editableTabs.length;i++){
-        if(this.editableTabs[i].name==targeLink){
-          var sameLink=1;
-        }else{
-          console.log("不同")
-        }
+        addTab (targeLink, targetName) {
+      this.$router.push({name: targeLink})
+      if (this.editableTabs.findIndex(item => item.name === targeLink) < 0) {
+        this.editableTabs.push({name: targeLink, title: targetName})
       }
-     if(sameLink=1){
-       console.log("有相同的连接了")
-     }else{
-        this.editableTabs.push({
-        title: targetName,
-        name: targeLink, 
-      });
-     }
-     
-      console.log(this.editableTabs);
-      
+        this.editableTabsValue = targeLink;     //将鼠标的位置移动到当前的tabs标签页位置
+
     },
+
 
     removeTab(targetName) {
       let tabs = this.editableTabs;
       let activeName = this.editableTabsValue;
-      if (activeName === targetName) {
+      // if (activeName === targetName) {
         tabs.forEach((tab, index) => {
           if (tab.name === targetName) {
             let nextTab = tabs[index + 1] || tabs[index - 1];
@@ -113,7 +103,13 @@ export default {
         });
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-      }
+      // }
+    },
+    selectTab(row){   //选中标签页时触发的事件
+      this.$router.push({name: row.name})
+      console.log(row);
+
+
     }
   }
 };
@@ -139,7 +135,6 @@ export default {
 }
 .mainContentBox {
   flex-grow:1;
-  border: 1px solid red;
   height: 100%;
 }
 </style>
