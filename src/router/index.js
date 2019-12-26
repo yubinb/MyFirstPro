@@ -2,8 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
 import index from '@/components/index'
-Vue.use(Router)
+import first from '@/LearnDirect/first'
+import second from '@/LearnDirect/second'
 
+
+Vue.use(Router)
 export default new Router({
   routes: [
     {
@@ -14,7 +17,19 @@ export default new Router({
     {
       path: '/index',
       name: 'index',
-      component: index
+      component: index,
+      children: [
+        {
+          path: '/first',
+          name: 'first',
+          component: first
+        },
+        {
+          path: '/second',
+          name: 'second',
+          component: second
+        }
+      ]
     }
   ]
 })
