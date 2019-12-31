@@ -13,7 +13,7 @@
                   <span>导航一</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1" @click="addTab('first','第一项')" >选项1</el-menu-item>
+                  <el-menu-item index="1-1" @click="addTab('userControl','用户管理')" >用户管理</el-menu-item>
                   <el-menu-item index="1-2"  @click="addTab('second','第二项')">选项2</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item index="1-3"  @click="addTab('third','第三项')">选项3</el-menu-item>
@@ -53,8 +53,14 @@
           </el-tabs>
         </div>
 
-        <div class="routeBox">
-          <router-view />
+<div class="routeBox">
+
+  <el-card shadow="always">
+<router-view />
+
+    </el-card>
+        
+          
         </div>
       </div>
     </div>
@@ -134,7 +140,13 @@ export default {
   border-bottom: 1px solid black;
 }
 .mainContentBox {
-  flex-grow:1;
+  flex:1;
+  overflow: hidden;
   height: 100%;
+
+}
+.routeBox{
+  margin: 30px 30px 0 30px;
+  
 }
 </style>

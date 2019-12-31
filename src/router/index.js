@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
 import index from '@/components/index'
-import first from '@/LearnDirect/first'
+import userControl from '@/LearnDirect/userControl'
 import second from '@/LearnDirect/second'
 import third from '@/LearnDirect/third'
 
@@ -27,9 +27,9 @@ export default new Router({
       component: index,
       children: [
         {
-          path: '/first',
-          name: 'first',
-          component: first
+          path: '/userControl',
+          name: 'userControl',
+          component: userControl
         },
         {
           path: '/second',

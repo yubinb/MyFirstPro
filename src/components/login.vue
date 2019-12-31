@@ -31,8 +31,8 @@ export default {
        ruleForm:{
         userName:"13420001323",
       passWord:"20191029"
-      }
-      
+      },
+     
     };
   },
   methods: {
@@ -49,15 +49,17 @@ export default {
         userName: this.ruleForm.userName
       })
         .then(res => {
-          if (res.data.responseCode=="0000"){
+          if (res.responseCode=="0000"){
             this.$message({
           message: '登录成功！',
           type: 'success'
         });
+         localStorage.setItem('UserToken', res.data.token); //localstory里面存储token
+        //  console.log(localStorage.getItem('UserToken')); //取出localstory里面的token
         this.$router.push({ name: "index" });
           }else{
             this.$message({
-          message: res.data.responseMsg,
+          message: res.responseMsg,
           type: 'error'
           })
           }
