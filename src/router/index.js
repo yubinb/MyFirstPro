@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/login'
+import login from '@/viewPage/login'
 import index from '@/components/index'
-import userControl from '@/LearnDirect/userControl'
-import second from '@/LearnDirect/second'
-import third from '@/LearnDirect/third'
+import userControl from '@/viewPage/userControl'
+import second from '@/viewPage/second'
+import third from '@/viewPage/third'
 
 
 

@@ -16,6 +16,9 @@
           <template slot-scope="{row}">
             <el-button @click="CheckUserInfo(row)" type="text" size="small">查看</el-button>
             <el-button type="text" size="small" @click="editUserInfo(row)">编辑</el-button>
+            <el-button type="text" size="small" @click="resetPsw(row)">重置密码</el-button>
+
+            
           </template>
         </el-table-column>
       </el-table>
@@ -53,8 +56,8 @@
 
           <el-form-item label="账号状态" :label-width="formLabelWidth">
             <el-select placeholder="请选择活动区域" v-model="dialogContentData.isValid">
-              <el-option label="有效" value="true"></el-option>
-              <el-option label="无效" value="false"></el-option>
+              <el-option label="有效" :value="true"></el-option>
+              <el-option label="无效" :value="false"></el-option>
             </el-select>
           </el-form-item>
 
@@ -95,7 +98,8 @@ import {
   userInfo,
   allRoleList,
   addOrEdit,
-  companyInfo
+  companyInfo,
+  resetPswd
 } from "../httpRequestApi/api";
 
 export default {
@@ -141,7 +145,9 @@ export default {
     AddUser() {
       //添加用户按钮点击
       this.dialogFormType=1;
-      this.dialogContentData={};
+       Object.keys(this.dialogContentData).forEach(key => {
+         this.dialogContentData[key] = ''
+       });
       this.dialogFormVisible = true;
     },
     roleInfo() {
@@ -154,10 +160,13 @@ export default {
       if (this.dialogFormType != 2) {
         addOrEdit(this.dialogContentData).then(res => {
           if (res.responseCode == "0000") {
-            //新建用戶成功操作
-            this.$message({ message: "用戶新增成功", type: "success" }),
-              this.queryUserInfo(),
-              (this.dialogFormVisible = false);
+            if(this.dialogFormType==1){
+              this.$message({ message: "用戶新增成功", type: "success" })
+            }else{
+              this.$message({ message: "用戶信息修改成功", type: "success" })
+            };
+              this.queryUserInfo();
+              this.dialogFormVisible = false;
           } else {
             this.$message({ message: res.responseMsg, type: "error" });
           }
@@ -182,16 +191,23 @@ export default {
         this.dialogFormType=2;
        Object.keys(this.dialogContentData).forEach(key => {
          this.dialogContentData[key] =row[key]
+         console.log(key)   // 这个key就是对象this.dialogContentData 的键值
        });
        this.dialogFormVisible=true;
     },
-    editUserInfo(row){
-      //   this.dialogFormType=3;
-      //   Object.keys(this.dialogContentData).forEach(key => {
-      //    this.dialogContentData[key] =row[key]
-      //  });
-      //  this.dialogFormVisible=true;
+    editUserInfo(row){    //点击编辑按钮
+        this.CheckUserInfo(row),
+        this.dialogFormType=3
     },
+  resetPsw(row){   //重置密码
+    resetPswd(row.userId,'111').then(res=>{
+      this.$message({message: res.data.responseMsg, type: "success"})
+    }
+    )
+     console.log(row.userId)
+  } 
+
+
   },
   created: function() {
     this.queryUserInfo();
