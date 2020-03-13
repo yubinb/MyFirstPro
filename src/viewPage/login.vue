@@ -29,8 +29,8 @@ export default {
   data() {
     return {
        ruleForm:{
-        userName:"13420001323",
-      passWord:"20191029"
+        userName:"tangsf",
+      passWord:"1234567aA"
       },
      
     };

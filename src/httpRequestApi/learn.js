@@ -38,6 +38,18 @@
 //  foo()
 
 
+
+
+// for(i=0;i<=1;i++){
+//     console.log(666) 
+//     ( function (){
+//             console.log(n)
+//         }(5))
+// }
+
+
+
+
 // for (var i=1; i<=5; i++) {   
 //     (function(k) { 
 //         setTimeout( function timer() { 
